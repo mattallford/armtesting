@@ -1,0 +1,39 @@
+name: armTemplateDeployment
+
+on:
+  workflow_dispatch:
+
+env:
+  subscriptionId: 8c6ccaa9-9f43-4f74-a91e-12a9f922d72c
+
+jobs:
+  armDeployStaging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    env:
+      resource_group_name: rg-stg-githubactions
+      location: Australia East
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy key vault
+        uses: Azure/arm-deploy@v1
+        id: storageAccountDeploy
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
+          subscriptionId: ${{ env.subscriptionId }}
+          template: ./keyvault.json
+          parameters: 
+            environmentCode=test
+            locationCode=ae
+            location="${{ env.location }}"
+            paralloTagValue=8-5
+            accessPolicies='{"list": []}'
+          deploymentMode: incremental
