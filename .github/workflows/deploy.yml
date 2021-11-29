@@ -21,6 +21,14 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+
+      - name: Get Key Vault Access Policies
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            ./Get-KeyVaultAccessPolicies.ps1 -keyVaultName kv-online-kaptrack-${{ inputs.environmentCode }}-${{ inputs.locationCode }}
+          azPSVersion: "latest"
 
       - name: Deploy key vault
         uses: Azure/arm-deploy@v1
@@ -35,5 +43,5 @@ jobs:
             locationCode=ae
             location="${{ env.location }}"
             paralloTagValue=8-5
-            accessPolicies='{"list": []}'
+            accessPolicies=${{ fromJSON(env.keyVaultAccessPolicies) }}
           deploymentMode: incremental
