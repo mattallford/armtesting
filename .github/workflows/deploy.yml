@@ -1,7 +1,9 @@
 name: armTemplateDeployment
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   subscriptionId: 8c6ccaa9-9f43-4f74-a91e-12a9f922d72c
@@ -43,5 +45,5 @@ jobs:
             locationCode=ae
             location="${{ env.location }}"
             paralloTagValue=8-5
-            accessPolicies=${{ fromJSON(env.keyVaultAccessPolicies) }}
+            accessPolicies=${{ env.keyVaultAccessPolicies }}
           deploymentMode: incremental
