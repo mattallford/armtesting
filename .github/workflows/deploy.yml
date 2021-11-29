@@ -29,7 +29,14 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            ./Get-KeyVaultAccessPolicies.ps1 -keyVaultName kv-online-kaptrack-${{ inputs.environmentCode }}-${{ inputs.locationCode }}
+            ./Get-KeyVaultAccessPolicies.ps1 -keyVaultName kv-online-kaptrack-test-ae
+          azPSVersion: "latest"
+
+      - name: Get Key Vault Access Policies
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Write-Host ${{ env.keyVaultAccessPolicies }}
           azPSVersion: "latest"
 
       - name: Deploy key vault
