@@ -31,7 +31,7 @@
     },
     "functions": [],
     "variables": {
-      "keyVaultName": "[format('kv-online-kaptrack-{0}-{1}', parameters('environmentCode'), parameters('locationCode'))]"    },
+      "keyVaultName": "[format('kv-kaptrack-{0}-{1}', parameters('environmentCode'), parameters('locationCode'))]"    },
     "resources": [
       {
         "type": "Microsoft.KeyVault/vaults",
