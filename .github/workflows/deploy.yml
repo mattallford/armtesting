@@ -36,7 +36,7 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            Write-Host ${{ toJSON(env.keyVaultAccessPolicies) }}
+            Write-Host ${{ fromJSON(env.keyVaultAccessPolicies) }}
           azPSVersion: "latest"
 
       - name: Deploy key vault

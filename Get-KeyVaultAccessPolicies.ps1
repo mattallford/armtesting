@@ -35,4 +35,4 @@ $armAccessPoliciesParameter = [pscustomobject]@{
 $armAccessPoliciesParameter = $armAccessPoliciesParameter | ConvertTo-Json -Depth 5 -Compress
 
 # Create a Github Actions variable named KeyVault.AccessPolicies for use in later steps in the workflow
-"keyVaultAccessPolicies=$($armAccessPoliciesParameter)" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+"keyVaultAccessPolicies=$armAccessPoliciesParameter" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
