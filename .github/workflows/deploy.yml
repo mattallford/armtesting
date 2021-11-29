@@ -52,5 +52,5 @@ jobs:
             locationCode=ae
             location="${{ env.location }}"
             paralloTagValue=8-5
-            accessPolicies="${{ env.keyVaultAccessPolicies }}"
+            accessPolicies=${{ fromJSON(env.keyVaultAccessPolicies) }}
           deploymentMode: incremental
