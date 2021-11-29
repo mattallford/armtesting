@@ -32,12 +32,9 @@ jobs:
             ./Get-KeyVaultAccessPolicies.ps1 -keyVaultName kv-online-kaptrack-test-ae
           azPSVersion: "latest"
 
-      - name: Get Key Vault Access Policies
-        uses: azure/powershell@v1
-        with:
-          inlineScript: |
-            Write-Host ${{ fromJSON(env.keyVaultAccessPolicies) }}
-          azPSVersion: "latest"
+      - name: print variable
+        run: |
+          echo ${{ env.keyVaultAccessPolicies }}
 
       - name: Deploy key vault
         uses: Azure/arm-deploy@v1
@@ -52,5 +49,5 @@ jobs:
             locationCode=ae
             location="${{ env.location }}"
             paralloTagValue=8-5
-            accessPolicies=${{ fromJSON(env.keyVaultAccessPolicies) }}
+            accessPolicies=${{ env.keyVaultAccessPolicies }}
           deploymentMode: incremental
